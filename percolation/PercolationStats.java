@@ -12,7 +12,8 @@ public class PercolationStats {
 	private void openRandomSite() {
 		int row = StdRandom.uniform(1,grid_size+1);
 		int col = StdRandom.uniform(1,grid_size+1);
-		if (perc.isFull(row, col)) perc.open(row, col);
+		if (!perc.isOpen(row, col))
+			perc.open(row, col);
 	};
 	
 	public PercolationStats(int n, int trials) {

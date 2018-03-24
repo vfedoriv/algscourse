@@ -4,9 +4,11 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
 	private int[][] grid;
 	private int n;
-	private int[] openArray; // as variant - realization with boolean array can save some memory
+	private boolean[] openArray;
 	private int openSites = 0;
 	private WeightedQuickUnionUF wQUF;
+	private int virtualTop;
+	private int virtualBottom;
 
 	private boolean inBound(int row, int col) {
 		if ((row <= 0) || (row > n))
@@ -26,9 +28,9 @@ public class Percolation {
 			throw new IllegalArgumentException("expected: argument should be between 1 and 4096; actual: " + n);
 		this.n = n;
 
-		openArray = new int[n * n + 2];
-		openArray[0] = 0; // virtual top site
-		openArray[n * n + 1] = n * n + 1; // virtual bottom site
+		openArray = new boolean[n * n + 1];
+		virtualTop = 0;
+		virtualBottom = n * n + 1;
 
 		grid = new int[n][n];
 		for (int i = 0; i < n; i++) {
@@ -43,43 +45,38 @@ public class Percolation {
 	public void open(int row, int col) {
 		inBound(row, col);
 		int i = 0;
-		if (isFull(row, col)) {
-//			System.out.println("open: row: " + row + " col : " + col);
+		if (!isOpen(row, col)) {
 			i = xyTo1D(row, col);
-			openArray[i] = i;
+			openArray[i] = true;
 			openSites++;
 
-			if ((i > 1) && (openArray[i - 1] > 0))
-				wQUF.union(i - 1, i); // left neighbor
+			if ((i > 1) && (openArray[i - 1] == true)) { // left neighbor
+				if (col > 1) wQUF.union(i - 1, i); }
 
-			if ((i > 0) && (openArray[i + 1] > 0)) // right neighbor
-				wQUF.union(i + 1, i);
+			if ((i > 0) && (i < n*n) && (openArray[i + 1] == true)) { // right neighbor
+				if (col < n) wQUF.union(i + 1, i);}
 
-			if (((i - n) > 0) && (openArray[i - n] > 0)) // top neighbor
+			if (((i - n) > 0) && (openArray[i - n] == true)) // top neighbor
 				wQUF.union(i - n, i);
 			else
-				if ((i - n) <= 0) wQUF.union(0, i); // connect to virtual top site
+				if ((i - n) <= 0) wQUF.union(virtualTop, i); // connect to virtual top site
 
-			if (((i + n) < n * n) && (openArray[i + n] > 0)) // bottom neighbor
+			if (((i + n) <= n * n) && (openArray[i + n] == true)) // bottom neighbor
 				wQUF.union(i + n, i);
 			else
-				if ((i + n) >= n * n) wQUF.union(n * n + 1, i); // connect to virtual bottom site
+				if ((i + n) > n * n) wQUF.union(virtualBottom, i); // connect to virtual bottom site
 		}
 
 	};
 
 	public boolean isOpen(int row, int col) {
 		inBound(row, col);
-		if (openArray[xyTo1D(row, col)] > 0)
-			return true;
-		return false;
+		return openArray[xyTo1D(row, col)];
 	};
 
 	public boolean isFull(int row, int col) {
 		inBound(row, col);
-		if (openArray[xyTo1D(row, col)] == 0)
-			return true;
-		return false;
+		return wQUF.connected(xyTo1D(row, col), virtualTop);
 	};
 
 	public int numberOfOpenSites() {
@@ -92,7 +89,13 @@ public class Percolation {
 		return false;
 	};
 
-//	public static void main(String[] args) {
-//
-//	};
+	public static void main(String[] args) {
+		Percolation perc = new Percolation(1);
+
+		perc.open(1, 1);
+	
+
+		System.out.println(perc.percolates());
+
+	};
 }
