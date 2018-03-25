@@ -4,17 +4,11 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
 
-	private Percolation perc;
 	private int grid_size;
 	private int experiments_count;
-	double[] fractions;
-	
-	private void openRandomSite() {
-		int row = StdRandom.uniform(1,grid_size+1);
-		int col = StdRandom.uniform(1,grid_size+1);
-		if (!perc.isOpen(row, col))
-			perc.open(row, col);
-	};
+	private double[] fractions;
+	private double mean;
+	private double stddev;
 	
 	public PercolationStats(int n, int trials) {
 		if ((n <= 0) || (trials <=0))
@@ -24,29 +18,37 @@ public class PercolationStats {
 		fractions = new double[experiments_count];
 		
 		for(int count = 0; count < experiments_count; count++) {
-			perc = new Percolation(grid_size);
+			Percolation perc = new Percolation(grid_size);
 			while (!perc.percolates()) {
-				openRandomSite();
+				int row = StdRandom.uniform(1,grid_size+1);
+				int col = StdRandom.uniform(1,grid_size+1);
+				if (!perc.isOpen(row, col))
+					perc.open(row, col);
 			}
 			fractions[count] = (double) perc.numberOfOpenSites()/(grid_size*grid_size);
 		}
 	};
 	
 	public double mean() {
-		return StdStats.mean(fractions);
+		mean = StdStats.mean(fractions);
+		return mean;
 	};
 	
 	public double stddev() {
-		if (experiments_count == 1) return Double.NaN;
-		return StdStats.stddev(fractions);
+		if (experiments_count == 1) {
+			stddev = Double.NaN;
+			return stddev;
+		}
+		stddev = StdStats.stddev(fractions);
+		return stddev;
 	};
 	
 	public double confidenceLo() {
-		return mean() - 1.96*stddev()/Math.sqrt(experiments_count);
+		return mean - 1.96*stddev/Math.sqrt(experiments_count);
 	};
 	
 	public double confidenceHi() {
-		return mean() + 1.96*stddev()/Math.sqrt(experiments_count);
+		return mean + 1.96*stddev/Math.sqrt(experiments_count);
 	};
 	
 	public static void main(String[] args) {

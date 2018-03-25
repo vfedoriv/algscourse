@@ -1,9 +1,9 @@
-// import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 	private int[][] grid;
-	private int n;
+	private int n; // grid size
 	private boolean[] openArray;
 	private int openSites = 0;
 	private WeightedQuickUnionUF wQUF;
@@ -27,7 +27,6 @@ public class Percolation {
 		if (!(n > 0) || (n > 4096)) // max size depends of java heap size
 			throw new IllegalArgumentException("expected: argument should be between 1 and 4096; actual: " + n);
 		this.n = n;
-
 		openArray = new boolean[n * n + 1];
 		virtualTop = 0;
 		virtualBottom = n * n + 1;
@@ -50,11 +49,11 @@ public class Percolation {
 			openArray[i] = true;
 			openSites++;
 
-			if ((i > 1) && (openArray[i - 1] == true)) { // left neighbor
-				if (col > 1) wQUF.union(i - 1, i); }
+			if ((i > 1) && (openArray[i - 1] == true)) // left neighbor
+				if (col > 1) wQUF.union(i - 1, i);
 
-			if ((i > 0) && (i < n*n) && (openArray[i + 1] == true)) { // right neighbor
-				if (col < n) wQUF.union(i + 1, i);}
+			if ((i > 0) && (i < n*n) && (openArray[i + 1] == true)) // right neighbor
+				if (col < n) wQUF.union(i + 1, i);
 
 			if (((i - n) > 0) && (openArray[i - n] == true)) // top neighbor
 				wQUF.union(i - n, i);
@@ -84,18 +83,16 @@ public class Percolation {
 	};
 
 	public boolean percolates() {
-		if (wQUF.connected(0, n * n + 1))
-			return true;
-		return false;
+		return wQUF.connected(virtualTop, virtualBottom);
 	};
 
 	public static void main(String[] args) {
-		Percolation perc = new Percolation(1);
-
+		Percolation perc = new Percolation(3);
 		perc.open(1, 1);
-	
-
-		System.out.println(perc.percolates());
-
+		perc.open(2, 2);
+		perc.open(2, 3);
+		perc.open(3, 3);
+		perc.open(2, 1);
+		StdOut.println("percolates: " + perc.percolates());
 	};
 }
