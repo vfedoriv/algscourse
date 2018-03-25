@@ -2,7 +2,6 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-	private int[][] grid;
 	private int n; // grid size
 	private boolean[] openArray;
 	private int openSites = 0;
@@ -31,12 +30,6 @@ public class Percolation {
 		virtualTop = 0;
 		virtualBottom = n * n + 1;
 
-		grid = new int[n][n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				grid[i][j] = i * n + j + 1;
-			}
-		}
 		// first element - virtual top site, last - virtual bottom site
 		wQUF = new WeightedQuickUnionUF(n * n + 2);
 	};
