@@ -25,7 +25,7 @@ public class Deque<Item> implements Iterable<Item> {
 		Node next;
 	}
 
-	private class DequeeIterator implements Iterator<Item> {
+	private class DequeIterator implements Iterator<Item> {
 		
 		private Node current = first;
 	
@@ -46,11 +46,11 @@ public class Deque<Item> implements Iterable<Item> {
 		
 	}
 
-
 	public boolean isEmpty() {
 		return (first == null);
 	}
 	
+	// return the number of items on the deque
 	public int size() {
 		if (first == null) return 0;
 		int i = 1;
@@ -62,6 +62,7 @@ public class Deque<Item> implements Iterable<Item> {
 		return i;
 	}
 	
+	// add the item to the front
 	public void addFirst(Item item) {
 		if (item == null) throw new IllegalArgumentException("argument cannot be null"); 
 		Node oldfirst = first;
@@ -73,6 +74,7 @@ public class Deque<Item> implements Iterable<Item> {
 		
 	}
 	
+	// add the item to the end
 	public void addLast(Item item) {
 		if (item == null) throw new IllegalArgumentException("argument cannot be null");
 		Node last = new Node();
@@ -89,6 +91,7 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 	}
 	
+	// remove and return the item from the front
 	public Item removeFirst() {
 		if (first == null) throw new NoSuchElementException("Deque is empty");
 		Node oldfirst = first;
@@ -101,6 +104,7 @@ public class Deque<Item> implements Iterable<Item> {
 		return oldfirst.item;
 	}
 	
+	// remove and return the item from the end
 	public Item removeLast() {
 		Node current = first;
 		Node last = first;
@@ -112,9 +116,9 @@ public class Deque<Item> implements Iterable<Item> {
 		return last.item;
 	}
 	
+	// return an iterator over items in order from front to end
 	public Iterator<Item> iterator() {
-		return new DequeeIterator();
-		
+		return new DequeIterator();
 	}
 
 	public static void main(String[] args) {
