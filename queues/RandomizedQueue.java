@@ -16,6 +16,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 				new_arr[i]=arr[i];
 			}
 			arr = new_arr;
+		} else {
+			if (current_size*4 < arr.length) {
+				Item[] new_arr = (Item[]) new Object[arr.length/2];
+				for (int i=0; i < current_size; i++) {
+					new_arr[i]=arr[i];
+				}
+				arr = new_arr;
+			}
 		}
 	}
 	
@@ -50,6 +58,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		arr[rnd_index] = arr[last];
 		arr[last] = null;
 		if (last> 0) last--;
+		resizeArray(last+1);
 		return item;
 	}
 	
