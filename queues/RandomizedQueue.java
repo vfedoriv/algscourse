@@ -8,9 +8,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	private Item[] arr = (Item[]) new Object[16];
 	int last = 0;
 	
-	public RandomizedQueue() {
-		
-	}
+	public RandomizedQueue() {}
 	
 	private void resizeArray(int current_size) {
 		if (current_size==arr.length) {
@@ -44,7 +42,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			arr[last+1] = item;
 			last++;
 		}
-		
 	}
 	
 	// remove and return a random item
@@ -70,38 +67,24 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 	
 	private class RandomizedIterator implements Iterator<Item> {
-		
 		int index = 0;
 		Item[] iterator_array;
-		
+
 		@SuppressWarnings("unchecked")
 		public RandomizedIterator() {
 			// @SuppressWarnings("unchecked")
 			iterator_array = (Item[]) new Object[size()];
-			
-			
 			StdRandom.shuffle(arr, 0, size());
-//			for (Item k : arr) {
-//				StdOut.println("  array k: " + k);
-//			}
 			for(int i=0;i <= last; i++) {
 				iterator_array[i]=arr[i]; 
 			}
-			
-			for (Item k : iterator_array) {
-			StdOut.println("  iterator_array k: " + k);
-			}
-			
 		}
 
 		public boolean hasNext() {
-			// return arr[index] != null;
-			return iterator_array[index] != null;
+			return (index < iterator_array.length);
 		}
 
 		public Item next() {
-//			if (arr[index]==null) throw new NoSuchElementException("No more elements in Deque");
-//			return arr[index++];
 			if (iterator_array[index]==null) throw new NoSuchElementException("No more elements in Deque");
 			return iterator_array[index++];
 		}
@@ -127,29 +110,57 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		rq.enqueue(5);
 
 		rq.enqueue(6);
-//		rq.dequeue();
-//		rq.dequeue();
-//		rq.dequeue();
-//		rq.dequeue();
-//		rq.dequeue();
-//		rq.dequeue();
-
-//		rq.enqueue(6);
-//		rq.enqueue(66);
-//		rq.enqueue(666);
-//		rq.enqueue(6666);
-
+		rq.dequeue();
+		rq.dequeue();
+		rq.dequeue();
+		rq.dequeue();
+		rq.dequeue();
+		rq.dequeue();
+		rq.enqueue(1);
+		rq.enqueue(22);
+		rq.enqueue(333);
+		rq.enqueue(4444);
+		// test iterator with integers
 		for (Integer i: rq) {
 			StdOut.println("item i: " + i);
 			for (Integer j : rq) {
 				StdOut.println("  item j: " + j);
 			}
-			// StdOut.println("item: " + i);
 		}
 		
-//		for (int i=0; i<100; i++) {
-//			StdOut.println("random item: " + rq.sample());
-//		}
+		// ==== string ===
+		RandomizedQueue<String> rq2 = new RandomizedQueue<String>();
+
+		rq2.enqueue("--1");
+
+		rq2.enqueue("--2");
+
+		rq2.enqueue("--3");
+
+		rq2.enqueue("--4");
+
+		rq2.enqueue("--5");
+
+		rq2.enqueue("--6");
+		rq2.dequeue();
+		rq2.dequeue();
+		rq2.dequeue();
+		rq2.dequeue();
+		rq2.dequeue();
+		rq2.dequeue();
+		rq2.enqueue("--1");
+		rq2.enqueue("--22");
+		rq2.enqueue("--333");
+		rq2.enqueue("--4444");
+		// test iterator with strings
+		for (String i: rq2) {
+			StdOut.println("item i: " + i);
+			for (String j : rq2) {
+				StdOut.println("  item j: " + j);
+			}
+		}
+		
+		
 		
 		StdOut.println("end");
 	}
