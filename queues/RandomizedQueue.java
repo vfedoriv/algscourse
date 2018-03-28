@@ -4,15 +4,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
-	@SuppressWarnings("unchecked")
 	private Item[] arr = (Item[]) new Object[16];
-	int last = 0;
+	private int last = 0;
 	
 	public RandomizedQueue() {}
 	
 	private void resizeArray(int current_size) {
 		if (current_size==arr.length) {
-			@SuppressWarnings("unchecked")
 			Item[] new_arr = (Item[]) new Object[current_size*2];
 			for (int i=0; i < current_size; i++) {
 				new_arr[i]=arr[i];
@@ -70,7 +68,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		int index = 0;
 		Item[] iterator_array;
 
-		@SuppressWarnings("unchecked")
 		public RandomizedIterator() {
 			// @SuppressWarnings("unchecked")
 			iterator_array = (Item[]) new Object[size()];
