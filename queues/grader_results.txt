@@ -2,27 +2,27 @@ See the Assessment Guide for information on how to interpret this report.
 
 ASSESSMENT SUMMARY
 
-Compilation:  PASSED (0 errors, 3 warnings)
+Compilation:  PASSED (0 errors, 4 warnings)
 API:          PASSED
 
-Findbugs:     FAILED (2 warnings)
+Findbugs:     PASSED
 PMD:          PASSED
-Checkstyle:   FAILED (0 errors, 46 warnings)
+Checkstyle:   FAILED (0 errors, 41 warnings)
 
 Correctness:  42/43 tests passed
-Memory:       89/102 tests passed
-Timing:       120/136 tests passed
+Memory:       105/105 tests passed
+Timing:       136/136 tests passed
 
-Aggregate score: 94.98%
+Aggregate score: 98.60%
 [Compilation: 5%, API: 5%, Findbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-3.8K Mar 28 14:03 Deque.java
- 463 Mar 28 14:03 Permutation.java
-3.6K Mar 28 14:03 RandomizedQueue.java
+3.1K Mar 28 17:23 Deque.java
+ 463 Mar 28 17:23 Permutation.java
+3.9K Mar 28 17:23 RandomizedQueue.java
 
 
 ********************************************************************************
@@ -49,14 +49,21 @@ RandomizedQueue.java:14: warning: [unchecked] unchecked cast
   found:    Object[]
   where Item is a type-variable:
     Item extends Object declared in class RandomizedQueue
-RandomizedQueue.java:73: warning: [unchecked] unchecked cast
+RandomizedQueue.java:21: warning: [unchecked] unchecked cast
+				Item[] new_arr = (Item[]) new Object[arr.length/2];
+				                          ^
+  required: Item[]
+  found:    Object[]
+  where Item is a type-variable:
+    Item extends Object declared in class RandomizedQueue
+RandomizedQueue.java:82: warning: [unchecked] unchecked cast
 			iterator_array = (Item[]) new Object[size()];
 			                          ^
   required: Item[]
   found:    Object[]
   where Item is a type-variable:
     Item extends Object declared in class RandomizedQueue
-3 warnings
+4 warnings
 
 % javac Permutation.java
 *-----------------------------------------------------------
@@ -83,9 +90,6 @@ Permutation:
 
 % findbugs *.class
 *-----------------------------------------------------------
-M C SLS_SUSPICIOUS_LOOP_SEARCH SLS: This method Deque.removeLast() continues a loop after finding an equality condition  At Deque.java:[line 112]
-L D DLS_DEAD_LOCAL_STORE_OF_NULL DLS: Assigns the value null to the local variable 'new_last' but never reads the variable.  At Deque.java:[line 118]
-Warnings generated: 2
 
 
 ================================================================
@@ -100,26 +104,16 @@ Warnings generated: 2
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] Deque.java:1:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:2:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:3:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:4:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:5:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:6:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:7:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:8:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:9:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:10:3: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
-[WARN] Deque.java:17:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
-[WARN] Deque.java:78:18: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] Deque.java:78:20: '==' is not followed by whitespace. [WhitespaceAround]
-[WARN] Deque.java:94:26: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] Deque.java:94:28: '==' is not followed by whitespace. [WhitespaceAround]
-[WARN] Deque.java:109:14: The local variable 'new_last' must start with a lowercase letter and use camelCase. [LocalVariableName]
-[WARN] Deque.java:112:25: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] Deque.java:112:27: '==' is not followed by whitespace. [WhitespaceAround]
-[WARN] Deque.java:116:17: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] Deque.java:116:19: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] Deque.java:6:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] Deque.java:70:14: The local variable 'new_last' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] Deque.java:74:18: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] Deque.java:74:20: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] Deque.java:88:14: The local variable 'old_first' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] Deque.java:89:27: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] Deque.java:89:29: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] Deque.java:104:14: The local variable 'last_item' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] Deque.java:105:22: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] Deque.java:105:24: '==' is not followed by whitespace. [WhitespaceAround]
 [WARN] Permutation.java:5:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
 [WARN] RandomizedQueue.java:7:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
 [WARN] RandomizedQueue.java:10:31: '{' is not followed by whitespace. [WhitespaceAround]
@@ -132,15 +126,25 @@ Warnings generated: 2
 [WARN] RandomizedQueue.java:15:24: '=' is not followed by whitespace. [WhitespaceAround]
 [WARN] RandomizedQueue.java:16:27: '=' is not preceded with whitespace. [WhitespaceAround]
 [WARN] RandomizedQueue.java:16:28: '=' is not followed by whitespace. [WhitespaceAround]
-[WARN] RandomizedQueue.java:24:25: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] RandomizedQueue.java:24:27: '==' is not followed by whitespace. [WhitespaceAround]
-[WARN] RandomizedQueue.java:48:13: The local variable 'rnd_index' must start with a lowercase letter and use camelCase. [LocalVariableName]
-[WARN] RandomizedQueue.java:48:45: ',' is not followed by whitespace. [WhitespaceAfter]
-[WARN] RandomizedQueue.java:52:17: '>' is not preceded with whitespace. [WhitespaceAround]
-[WARN] RandomizedQueue.java:59:40: ',' is not followed by whitespace. [WhitespaceAfter]
-[WARN] RandomizedQueue.java:69:16: The instance variable 'iterator_array' must start with a lowercase letter and use camelCase. [MemberName]
+[WARN] RandomizedQueue.java:21:24: The local variable 'new_arr' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] RandomizedQueue.java:22:27: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:22:28: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:23:31: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:23:32: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:32:25: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:32:27: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:56:13: The local variable 'rnd_index' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] RandomizedQueue.java:56:45: ',' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:60:17: '>' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:68:40: ',' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:78:16: The instance variable 'iterator_array' must start with a lowercase letter and use camelCase. [MemberName]
+[WARN] RandomizedQueue.java:84:16: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:84:22: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:84:23: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:84:25: ';' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:85:34: '=' is not preceded with whitespace. [WhitespaceAround]
 ...
-Checkstyle ends with 0 errors and 45 warnings.
+Checkstyle ends with 0 errors and 40 warnings.
 
 % custom checkstyle checks for Deque.java
 *-----------------------------------------------------------
@@ -397,8 +401,8 @@ Test 17: check that remove() and next() throw the specified exceptions in iterat
 Test 18: call iterator() when randomized queue is empty
     java.lang.ArrayIndexOutOfBoundsException: 0
 
-    RandomizedQueue$RandomizedIterator.<init>(RandomizedQueue.java:76)
-    RandomizedQueue.iterator(RandomizedQueue.java:64)
+    RandomizedQueue$RandomizedIterator.<init>(RandomizedQueue.java:85)
+    RandomizedQueue.iterator(RandomizedQueue.java:73)
     TestRandomizedQueue.test18(TestRandomizedQueue.java:1132)
     TestRandomizedQueue.main(TestRandomizedQueue.java:1218)
 
@@ -422,37 +426,37 @@ Running 9 total tests.
 
 Test 1a: check formatting for sample inputs from assignment specification
   % java Permutation 3 < distinct.txt
-  A
   F
-  B
+  I
+  H
 
   % java Permutation 3 < distinct.txt
-  H
   I
-  C
+  G
+  F
 
   % java Permutation 8 < duplicates.txt
   BB
   BB
   CC
-  BB
   AA
-  CC
   BB
+  BB
+  CC
   BB
 
 ==> passed
 
 Test 1b: check formatting for other inputs
   % java Permutation 8 < mediumTale.txt
-  times
+  the
+  foolishness
   age
-  age
+  the
   it
-  of
-  wisdom
-  best
-  of
+  times
+  it
+  the
 
   % java Permutation 0 < distinct.txt
   [no output]
@@ -567,7 +571,7 @@ Test 4: Time main() with k = 5, for inputs containing n random strings
 => passed       64000     0.02
 => passed      128000     0.05
 => passed      256000     0.24
-=> passed      512000     0.28
+=> passed      512000     0.25
 ==> 10/10 tests passed
 
 
@@ -583,7 +587,7 @@ Test 5: Time main() with k = 1000, for inputs containing n random strings
 => passed       32000     0.01
 => passed       64000     0.02
 => passed      128000     0.05
-=> passed      256000     0.09
+=> passed      256000     0.12
 => passed      512000     0.19
 ==> 10/10 tests passed
 
@@ -665,14 +669,14 @@ Test 1a-1e: Total memory usage after inserting n items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8          352         
-=> passed       64         2592         
-=> passed      256        10272         
-=> passed     1024        40992         
-=> passed     4096       163872         
+=> passed        8          424         
+=> passed       64         3112         
+=> passed      256        12328         
+=> passed     1024        49192         
+=> passed     4096       196648         
 ==> 5/5 tests passed
 
-Memory: 40.00 n + 32.00   (R^2 = 1.000)
+Memory: 48.00 n + 40.00   (R^2 = 1.000)
 
 
 
@@ -681,14 +685,14 @@ Test 2a-2e: Total memory usage after inserting n+1 items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8          392         
-=> passed       64         2632         
-=> passed      256        10312         
-=> passed     1024        41032         
-=> passed     4096       163912         
+=> passed        8          472         
+=> passed       64         3160         
+=> passed      256        12376         
+=> passed     1024        49240         
+=> passed     4096       196696         
 ==> 5/5 tests passed
 
-Memory after adding n = 2^i + 1 items: 40.00 n + 32.00   (R^2 = 1.000)
+Memory after adding n = 2^i + 1 items: 48.00 n + 40.00   (R^2 = 1.000)
 
 
 
@@ -697,14 +701,14 @@ Test 3a-3e: Total memory usage after inserting 2n+1 items
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8          392         
-=> passed       64         2632         
-=> passed      256        10312         
-=> passed     1024        41032         
-=> passed     4096       163912         
+=> passed        8          472         
+=> passed       64         3160         
+=> passed      256        12376         
+=> passed     1024        49240         
+=> passed     4096       196696         
 ==> 5/5 tests passed
 
-Memory: 40.00 n + 32.00   (R^2 = 1.000)
+Memory: 48.00 n + 40.00   (R^2 = 1.000)
 
 
 
@@ -714,14 +718,14 @@ Test 4a-4e: Total memory usage after inserting n items and then
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8           72         
-=> passed       64           72         
-=> passed      256           72         
-=> passed     1024           72         
-=> passed     4096           72         
+=> passed        8           88         
+=> passed       64           88         
+=> passed      256           88         
+=> passed     1024           88         
+=> passed     4096           88         
 ==> 5/5 tests passed
 
-Memory after adding n = 2^i items: 72.00   (R^2 = 1.000)
+Memory after adding n = 2^i items: 88.00   (R^2 = 1.000)
 
 
 
@@ -771,10 +775,7 @@ Test 7: Worst-case constant memory allocated or deallocated
   * 512 random operations
 ==> passed
 
-Test 8 (bonus): Uses at most 40n + 40 bytes of memory
-==> passed
-
-Total: 29/28 tests passed!
+Total: 28/28 tests passed!
 
 ================================================================
 
@@ -866,18 +867,18 @@ Test 5a-5i: Total memory usage after inserting n items,
 
                  n        bytes
 ----------------------------------------------------------
-=> FAILED       32          312   (1.3x)
-=> FAILED       64          568   (2.4x)
-=> FAILED      128         1080   (4.5x)
-=> FAILED      256         2104   (8.8x)
-=> FAILED      512         4152  (17.3x)
-=> FAILED     1024         8248  (34.4x)
-=> FAILED     2048        16440  (68.5x)
-=> FAILED     4096        32824 (136.8x)
-=> FAILED     8192        65592 (273.3x)
-==> 0/9 tests passed
+=> passed       32           88         
+=> passed       64           88         
+=> passed      128           88         
+=> passed      256           88         
+=> passed      512           88         
+=> passed     1024           88         
+=> passed     2048           88         
+=> passed     4096           88         
+=> passed     8192           88         
+==> 9/9 tests passed
 
-Memory: 8.00 n + 56.00   (R^2 = 1.000)
+Memory: 88.00   (R^2 = 1.000)
 
 
 Test 6a-6d: Total memory usage of iterator after inserting n items.
@@ -924,6 +925,7 @@ Test 9: Total memory usage after inserting n items, seeking to identify
 
                  n        bytes
 ----------------------------------------------------------
+=> passed        8          120         
 => passed       16          184         
 => passed       32          312         
 => passed       64          568         
@@ -932,7 +934,7 @@ Test 9: Total memory usage after inserting n items, seeking to identify
 => passed      512         4152         
 => passed     1024         8248         
 => passed     2048        16440         
-==> 8/8 tests passed
+==> 9/9 tests passed
 
 Memory: 8.00 n + 56.00   (R^2 = 1.000)
 
@@ -943,24 +945,26 @@ Test 10: Total memory usage after inserting 4096 items, then successively
 
                  n        bytes
 ----------------------------------------------------------
-=> passed     3200        65592         
-=> passed     1600        65592         
-=> FAILED      800        65592   (1.7x)
-=> FAILED      400        65592   (3.4x)
-=> FAILED      200        65592   (6.7x)
-=> FAILED      100        65592  (13.1x)
-=> FAILED       50        65592  (25.3x)
-==> 2/7 tests passed
+=> passed     2048        65592         
+=> passed     1024        32824         
+=> passed      512        16440         
+=> passed      256         8248         
+=> passed      128         4152         
+=> passed       64         2104         
+=> passed       32         1080         
+=> passed       16          568         
+=> passed        8          312         
+==> 9/9 tests passed
 
-Memory: 65592.00   (R^2 = 1.000)
+Memory: 32.00 n + 56.00   (R^2 = 1.000)
 
 
-Min observed memory for RandomizedQueue: 65592.00   (R^2 = 1.000)
+Min observed memory for RandomizedQueue: 8.00 n + 56.00   (R^2 = 1.000)
 Max observed memory for RandomizedQueue: 32.00 n + 24.00   (R^2 = 1.000)
 
-Running 72 total tests.
+Running 75 total tests.
 
-Total: 58/72 tests passed!
+Total: 75/75 tests passed!
 
 ================================================================
 
@@ -984,13 +988,13 @@ Test 1a-1g: make n random calls to addFirst(), removeFirst(), isEmpty(), and siz
 => passed        4096     0.00
 => passed        8192     0.00
 => passed       16384     0.00
-=> passed       32768     0.00
+=> passed       32768     0.01
 => passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.02
 => passed      512000     0.04
-=> passed     1024000     0.07
-=> passed     2048000     0.14
+=> passed     1024000     0.09
+=> passed     2048000     0.12
 ==> 12/12 tests passed
 
 
@@ -1001,14 +1005,17 @@ Test 2a-2g: make n random calls to addLast(), removeLast(), isEmpty(), and size(
 ------------------------------
 => passed        1024     0.00
 => passed        2048     0.00
-=> passed        4096     0.01
-=> passed        8192     0.04
-=> passed       16384     0.17
-=> passed       32768     0.70
-=> FAILED       65536     2.87
-   [ Most likely one of your operations is not constant time. ]
-
-==> 6/12 tests passed
+=> passed        4096     0.00
+=> passed        8192     0.00
+=> passed       16384     0.00
+=> passed       32768     0.00
+=> passed       65536     0.00
+=> passed      128000     0.00
+=> passed      256000     0.01
+=> passed      512000     0.02
+=> passed     1024000     0.04
+=> passed     2048000     0.07
+==> 12/12 tests passed
 
 
 Test 3a-3g: make n random calls to addFirst(), addLast(), removeFirst(), removeLast(),
@@ -1019,13 +1026,16 @@ Test 3a-3g: make n random calls to addFirst(), addLast(), removeFirst(), removeL
 => passed        1024     0.00
 => passed        2048     0.00
 => passed        4096     0.00
-=> passed        8192     0.02
-=> passed       16384     0.09
-=> passed       32768     0.42
-=> FAILED       65536     1.80
-   [ Most likely one of your operations is not constant time. ]
-
-==> 6/12 tests passed
+=> passed        8192     0.00
+=> passed       16384     0.00
+=> passed       32768     0.00
+=> passed       65536     0.00
+=> passed      128000     0.01
+=> passed      256000     0.01
+=> passed      512000     0.02
+=> passed     1024000     0.04
+=> passed     2048000     0.16
+==> 12/12 tests passed
 
 
 Test 4a-4g: make n calls to addFirst(); iterate over the n items by calling
@@ -1039,12 +1049,12 @@ Test 4a-4g: make n calls to addFirst(); iterate over the n items by calling
 => passed        8192     0.00
 => passed       16384     0.00
 => passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.00
-=> passed      512000     0.01
-=> passed     1024000     0.01
-=> passed     2048000     0.02
+=> passed       65536     0.01
+=> passed      128000     0.01
+=> passed      256000     0.02
+=> passed      512000     0.04
+=> passed     1024000     0.02
+=> passed     2048000     0.03
 ==> 12/12 tests passed
 
 
@@ -1054,14 +1064,15 @@ Test 5a-5g: make n calls to addFirst()/addLast(); interleave n calls each to
                     n  seconds
 ----------------------------------
 => passed        1025     0.00
-=> passed        2049     0.02
-=> passed        4097     0.07
-=> FAILED       16385     1.32
-   [ Most likely one of your operations is not constant time. ]
+=> passed        2049     0.00
+=> passed        4097     0.00
+=> passed       16385     0.00
+=> passed       32767     0.00
+=> passed       32768     0.00
+=> passed       32769     0.00
+==> 7/7 tests passed
 
-==> 3/7 tests passed
-
-Total: 39/55 tests passed!
+Total: 55/55 tests passed!
 
 
 ================================================================
@@ -1108,7 +1119,7 @@ Test 4a-g: make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed      128000     0.01
 => passed      256000     0.01
 => passed      512000     0.02
-=> passed     1024000     0.04
+=> passed     1024000     0.05
 => passed     2048000     0.09
 ==> 12/12 tests passed
 
@@ -1127,7 +1138,7 @@ Test 5a-g: make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed       65536     0.00
 => passed      128000     0.01
 => passed      256000     0.02
-=> passed      512000     0.03
+=> passed      512000     0.04
 => passed     1024000     0.07
 => passed     2048000     0.14
 ==> 12/12 tests passed
@@ -1169,7 +1180,7 @@ Test 7a-g: make n calls to enqueue(); iterate over the n items
 => passed      256000     0.02
 => passed      512000     0.04
 => passed     1024000     0.06
-=> passed     2048000     0.13
+=> passed     2048000     0.12
 ==> 12/12 tests passed
 
 
@@ -1191,4 +1202,5 @@ Total: 58/58 tests passed!
 
 
 ================================================================
+
 
