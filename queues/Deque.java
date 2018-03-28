@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 public class Deque<Item> implements Iterable<Item> {
 	
 	private Node first = null;
+	private int size = 0;
 	
 	public Deque() {
 	}
@@ -52,14 +53,7 @@ public class Deque<Item> implements Iterable<Item> {
 	
 	// return the number of items on the deque
 	public int size() {
-		if (first == null) return 0;
-		int i = 1;
-		Node current = first;
-		while (current.next != null) {
-			current = current.next;
-			i++;
-		}
-		return i;
+		return size;
 	}
 	
 	// add the item to the front
@@ -71,6 +65,7 @@ public class Deque<Item> implements Iterable<Item> {
 		if (oldfirst == null) {
 			first.next = null;
 		} else first.next = oldfirst;
+		size++;
 		
 	}
 	
@@ -89,6 +84,7 @@ public class Deque<Item> implements Iterable<Item> {
 			}
 			current.next = last;
 		}
+		size++;
 	}
 	
 	// remove and return the item from the front
@@ -101,19 +97,28 @@ public class Deque<Item> implements Iterable<Item> {
 			first = oldfirst.next;
 		}
 		oldfirst.next = null;
+		size--;
 		return oldfirst.item;
+		
 	}
 	
 	// remove and return the item from the end
 	public Item removeLast() {
+		if (first == null) throw new NoSuchElementException("Deque is empty");
 		Node current = first;
-		Node last = first;
-		while (current.next.next != null) {
+		Node new_last = first;
+		
+		for (int i = 1; i < size; i++) {
+			if ((size-i)==1) new_last = current;
 			current = current.next;
 		}
-		last = current.next;
-		current.next = null;
-		return last.item;
+		new_last.next = null;
+		if (size==1) {
+			first = null;
+			new_last = null;
+		}
+		size--;
+		return current.item;
 	}
 	
 	// return an iterator over items in order from front to end
@@ -123,22 +128,18 @@ public class Deque<Item> implements Iterable<Item> {
 
 	public static void main(String[] args) {
 		Deque<Integer> deq = new Deque<Integer>();
-		deq.addFirst(1);
-		StdOut.println("size: " + deq.size());
-		deq.addLast(2);
-		StdOut.println("size: " + deq.size());
-		deq.addLast(3);
-		StdOut.println("size: " + deq.size());
-		deq.addFirst(4);
-		StdOut.println("size: " + deq.size());
+//		deq.addFirst(1);
+//		deq.removeLast();
+//		deq.addFirst(2);
+//		deq.addFirst(6);
+//		deq.removeFirst();
+//		deq.removeLast();
+//		deq.addLast(7);
+//		deq.removeFirst();
+		deq.addLast(7);
 		deq.removeLast();
-		StdOut.println("size: " + deq.size());
-		deq.removeFirst();
-		StdOut.println("size: " + deq.size());
-		deq.addFirst(5);
-		StdOut.println("size: " + deq.size());
-		deq.addLast(6);
-		StdOut.println("size: " + deq.size());
+		StdOut.println(deq.isEmpty());
+
 		for (Integer i : deq) {
 			StdOut.println(i);
 		}
