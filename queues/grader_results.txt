@@ -9,20 +9,20 @@ Findbugs:     PASSED
 PMD:          PASSED
 Checkstyle:   FAILED (0 errors, 41 warnings)
 
-Correctness:  42/43 tests passed
+Correctness:  43/43 tests passed
 Memory:       105/105 tests passed
 Timing:       136/136 tests passed
 
-Aggregate score: 98.60%
+Aggregate score: 100.00%
 [Compilation: 5%, API: 5%, Findbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-3.1K Mar 28 17:23 Deque.java
- 463 Mar 28 17:23 Permutation.java
-3.9K Mar 28 17:23 RandomizedQueue.java
+3.1K Mar 28 17:44 Deque.java
+ 463 Mar 28 17:44 Permutation.java
+3.9K Mar 28 17:44 RandomizedQueue.java
 
 
 ********************************************************************************
@@ -56,7 +56,7 @@ RandomizedQueue.java:21: warning: [unchecked] unchecked cast
   found:    Object[]
   where Item is a type-variable:
     Item extends Object declared in class RandomizedQueue
-RandomizedQueue.java:82: warning: [unchecked] unchecked cast
+RandomizedQueue.java:81: warning: [unchecked] unchecked cast
 			iterator_array = (Item[]) new Object[size()];
 			                          ^
   required: Item[]
@@ -138,11 +138,11 @@ Permutation:
 [WARN] RandomizedQueue.java:60:17: '>' is not preceded with whitespace. [WhitespaceAround]
 [WARN] RandomizedQueue.java:68:40: ',' is not followed by whitespace. [WhitespaceAfter]
 [WARN] RandomizedQueue.java:78:16: The instance variable 'iterator_array' must start with a lowercase letter and use camelCase. [MemberName]
-[WARN] RandomizedQueue.java:84:16: 'for' is not followed by whitespace. [WhitespaceAfter]
-[WARN] RandomizedQueue.java:84:22: '=' is not preceded with whitespace. [WhitespaceAround]
-[WARN] RandomizedQueue.java:84:23: '=' is not followed by whitespace. [WhitespaceAround]
-[WARN] RandomizedQueue.java:84:25: ';' is not followed by whitespace. [WhitespaceAfter]
-[WARN] RandomizedQueue.java:85:34: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:84:20: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:84:26: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:84:27: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] RandomizedQueue.java:84:29: ';' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:85:38: '=' is not preceded with whitespace. [WhitespaceAround]
 ...
 Checkstyle ends with 0 errors and 40 warnings.
 
@@ -399,17 +399,10 @@ Test 17: check that remove() and next() throw the specified exceptions in iterat
 ==> passed
 
 Test 18: call iterator() when randomized queue is empty
-    java.lang.ArrayIndexOutOfBoundsException: 0
-
-    RandomizedQueue$RandomizedIterator.<init>(RandomizedQueue.java:85)
-    RandomizedQueue.iterator(RandomizedQueue.java:73)
-    TestRandomizedQueue.test18(TestRandomizedQueue.java:1132)
-    TestRandomizedQueue.main(TestRandomizedQueue.java:1218)
-
-==> FAILED
+==> passed
 
 
-Total: 17/18 tests passed!
+Total: 18/18 tests passed!
 
 
 ================================================================
@@ -426,23 +419,23 @@ Running 9 total tests.
 
 Test 1a: check formatting for sample inputs from assignment specification
   % java Permutation 3 < distinct.txt
-  F
+  B
   I
-  H
+  E
 
   % java Permutation 3 < distinct.txt
-  I
-  G
-  F
+  D
+  E
+  H
 
   % java Permutation 8 < duplicates.txt
-  BB
-  BB
-  CC
   AA
-  BB
-  BB
   CC
+  CC
+  BB
+  BB
+  BB
+  BB
   BB
 
 ==> passed
@@ -450,13 +443,13 @@ Test 1a: check formatting for sample inputs from assignment specification
 Test 1b: check formatting for other inputs
   % java Permutation 8 < mediumTale.txt
   the
-  foolishness
+  it
   age
-  the
-  it
+  wisdom
+  was
+  worst
+  best
   times
-  it
-  the
 
   % java Permutation 0 < distinct.txt
   [no output]
@@ -568,9 +561,9 @@ Test 4: Time main() with k = 5, for inputs containing n random strings
 => passed        8000     0.00
 => passed       16000     0.01
 => passed       32000     0.01
-=> passed       64000     0.02
+=> passed       64000     0.03
 => passed      128000     0.05
-=> passed      256000     0.24
+=> passed      256000     0.25
 => passed      512000     0.25
 ==> 10/10 tests passed
 
@@ -585,10 +578,10 @@ Test 5: Time main() with k = 1000, for inputs containing n random strings
 => passed        8000     0.00
 => passed       16000     0.01
 => passed       32000     0.01
-=> passed       64000     0.02
+=> passed       64000     0.03
 => passed      128000     0.05
-=> passed      256000     0.12
-=> passed      512000     0.19
+=> passed      256000     0.10
+=> passed      512000     0.20
 ==> 10/10 tests passed
 
 
@@ -988,12 +981,12 @@ Test 1a-1g: make n random calls to addFirst(), removeFirst(), isEmpty(), and siz
 => passed        4096     0.00
 => passed        8192     0.00
 => passed       16384     0.00
-=> passed       32768     0.01
+=> passed       32768     0.00
 => passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.02
 => passed      512000     0.04
-=> passed     1024000     0.09
+=> passed     1024000     0.08
 => passed     2048000     0.12
 ==> 12/12 tests passed
 
@@ -1033,7 +1026,7 @@ Test 3a-3g: make n random calls to addFirst(), addLast(), removeFirst(), removeL
 => passed      128000     0.01
 => passed      256000     0.01
 => passed      512000     0.02
-=> passed     1024000     0.04
+=> passed     1024000     0.05
 => passed     2048000     0.16
 ==> 12/12 tests passed
 
@@ -1053,7 +1046,7 @@ Test 4a-4g: make n calls to addFirst(); iterate over the n items by calling
 => passed      128000     0.01
 => passed      256000     0.02
 => passed      512000     0.04
-=> passed     1024000     0.02
+=> passed     1024000     0.03
 => passed     2048000     0.03
 ==> 12/12 tests passed
 
@@ -1068,7 +1061,7 @@ Test 5a-5g: make n calls to addFirst()/addLast(); interleave n calls each to
 => passed        4097     0.00
 => passed       16385     0.00
 => passed       32767     0.00
-=> passed       32768     0.00
+=> passed       32768     0.01
 => passed       32769     0.00
 ==> 7/7 tests passed
 
@@ -1115,10 +1108,10 @@ Test 4a-g: make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed        8192     0.00
 => passed       16384     0.00
 => passed       32768     0.00
-=> passed       65536     0.00
+=> passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.01
-=> passed      512000     0.02
+=> passed      512000     0.03
 => passed     1024000     0.05
 => passed     2048000     0.09
 ==> 12/12 tests passed
@@ -1140,7 +1133,7 @@ Test 5a-g: make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed      256000     0.02
 => passed      512000     0.04
 => passed     1024000     0.07
-=> passed     2048000     0.14
+=> passed     2048000     0.17
 ==> 12/12 tests passed
 
 
@@ -1178,9 +1171,9 @@ Test 7a-g: make n calls to enqueue(); iterate over the n items
 => passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.02
-=> passed      512000     0.04
-=> passed     1024000     0.06
-=> passed     2048000     0.12
+=> passed      512000     0.05
+=> passed     1024000     0.07
+=> passed     2048000     0.17
 ==> 12/12 tests passed
 
 
@@ -1193,8 +1186,8 @@ Test 8a-g: make n calls to enqueue(); interleave n calls each
 => passed        2049     0.00
 => passed        4097     0.00
 => passed       16385     0.00
-=> passed       32767     0.00
-=> passed       32768     0.00
+=> passed       32767     0.01
+=> passed       32768     0.01
 => passed       32769     0.00
 ==> 7/7 tests passed
 
