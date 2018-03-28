@@ -76,14 +76,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	private class RandomizedIterator implements Iterator<Item> {
 		int index = 0;
 		Item[] iterator_array;
-
 		public RandomizedIterator() {
 			// @SuppressWarnings("unchecked")
 			iterator_array = (Item[]) new Object[size()];
-			StdRandom.shuffle(arr, 0, size());
-			for(int i=0;i <= last; i++) {
-				iterator_array[i]=arr[i]; 
-			}
+			if (!isEmpty()) {
+				StdRandom.shuffle(arr, 0, size());
+				for(int i=0;i <= last; i++) {
+					iterator_array[i]=arr[i]; 
+				}
+			} 				
 		}
 
 		public boolean hasNext() {
