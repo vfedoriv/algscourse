@@ -82,7 +82,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		}
 
 		public Item next() {
-			if (iterator_array[index]==null) throw new NoSuchElementException("No more elements in Deque");
+			if (!(index < iterator_array.length)) throw new NoSuchElementException("No more elements in Deque");
 			return iterator_array[index++];
 		}
 		
