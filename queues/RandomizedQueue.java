@@ -14,7 +14,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (current_size==arr.length) {
 			@SuppressWarnings("unchecked")
 			Item[] new_arr = (Item[]) new Object[current_size*2];
-			for (int i=0; i <= current_size; i++) {
+			for (int i=0; i < current_size; i++) {
 				new_arr[i]=arr[i];
 			}
 			arr = new_arr;
@@ -38,7 +38,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (isEmpty()) {
 			arr[0] = item;
 		} else { 
-			resizeArray(last);
+			resizeArray(last+1);
 			arr[last+1] = item;
 			last++;
 		}
