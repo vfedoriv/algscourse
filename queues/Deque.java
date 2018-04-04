@@ -1,14 +1,3 @@
-//public class Deque<Item> implements Iterable<Item> {
-//public Deque()                           // construct an empty deque
-//public boolean isEmpty()                 // is the deque empty?
-//public int size()                        // return the number of items on the deque
-//public void addFirst(Item item)          // add the item to the front
-//public void addLast(Item item)           // add the item to the end
-//public Item removeFirst()                // remove and return the item from the front
-//public Item removeLast()                 // remove and return the item from the end
-//public Iterator<Item> iterator()         // return an iterator over items in order from front to end
-//public static void main(String[] args)   // unit testing (optional)
-//}
 import edu.princeton.cs.algs4.StdOut;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -16,6 +5,7 @@ import java.util.NoSuchElementException;
 public class Deque<Item> implements Iterable<Item> {
 	
 	private Node first = null;
+	private Node last = null;
 	private int size = 0;
 	
 	public Deque() {
@@ -24,6 +14,7 @@ public class Deque<Item> implements Iterable<Item> {
 	private class Node {
 		Item item;
 		Node next;
+		Node prev;
 	}
 
 	private class DequeIterator implements Iterator<Item> {
@@ -62,65 +53,66 @@ public class Deque<Item> implements Iterable<Item> {
 		Node oldfirst = first;
 		first = new Node();
 		first.item = item;
+		first.prev = null;
 		if (oldfirst == null) {
 			first.next = null;
-		} else first.next = oldfirst;
+			last = first;
+		} else {
+			first.next = oldfirst;
+			oldfirst.prev = first;
+		}
 		size++;
-		
 	}
 	
 	// add the item to the end
 	public void addLast(Item item) {
 		if (item == null) throw new IllegalArgumentException("argument cannot be null");
-		Node last = new Node();
-		last.item = item;
-		last.next = null;
+		Node new_last = new Node();
+		new_last.item = item;
+		new_last.next = null;
+		
 		if (first==null) {
-			first = last;
+			first = new_last;
+			last = new_last; 
 		} else {
-			Node current = first;
-			while (current.next != null) {
-				current = current.next;
-			}
-			current.next = last;
+			new_last.prev = last;
+			last.next = new_last;
+			last = new_last;
 		}
 		size++;
 	}
-	
+		
 	// remove and return the item from the front
 	public Item removeFirst() {
 		if (first == null) throw new NoSuchElementException("Deque is empty");
-		Node oldfirst = first;
-		if (oldfirst.next==null) {
-			first = null;			
+		Node old_first = first;
+		if (old_first.next==null) {
+			first = null;
+			last = null;
 		} else {
-			first = oldfirst.next;
+			first = old_first.next;
+			first.prev = null;
 		}
-		oldfirst.next = null;
+		old_first.next = null;
 		size--;
-		return oldfirst.item;
-		
+		return old_first.item;
 	}
 	
 	// remove and return the item from the end
 	public Item removeLast() {
 		if (first == null) throw new NoSuchElementException("Deque is empty");
-		Node current = first;
-		Node new_last = first;
-		
-		for (int i = 1; i < size; i++) {
-			if ((size-i)==1) new_last = current;
-			current = current.next;
-		}
-		new_last.next = null;
-		if (size==1) {
+		Item last_item = last.item;
+		if (last.prev==null) {
 			first = null;
-			new_last = null;
+			last = null;
+		} else {
+			last = last.prev;
+			last.next = null;
 		}
 		size--;
-		return current.item;
+		return last_item;
 	}
-	
+
 	// return an iterator over items in order from front to end
 	public Iterator<Item> iterator() {
 		return new DequeIterator();
@@ -128,16 +120,17 @@ public class Deque<Item> implements Iterable<Item> {
 
 	public static void main(String[] args) {
 		Deque<Integer> deq = new Deque<Integer>();
-//		deq.addFirst(1);
-//		deq.removeLast();
-//		deq.addFirst(2);
-//		deq.addFirst(6);
-//		deq.removeFirst();
-//		deq.removeLast();
-//		deq.addLast(7);
-//		deq.removeFirst();
+		deq.addFirst(1);
+		deq.removeLast();
+		deq.addFirst(2);
+		deq.addFirst(6);
+		deq.removeFirst();
+		deq.removeLast();
+		deq.addLast(7);
+		deq.removeFirst();
 		deq.addLast(7);
 		deq.removeLast();
+		
 		StdOut.println(deq.isEmpty());
 
 		for (Integer i : deq) {
