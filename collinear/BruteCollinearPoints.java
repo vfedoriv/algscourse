@@ -20,7 +20,7 @@ public class BruteCollinearPoints {
 
 	public BruteCollinearPoints(Point[] points) {
 		if (points==null) throw new IllegalArgumentException("argument cannot be null");
-		// Arrays.sort(points);
+		Arrays.sort(points);
 		for (int i=0; i < points.length; i++) {
 			if (points[i]== null)  throw new IllegalArgumentException("array item cannot be null");
 			if (i> 0) {
@@ -34,7 +34,7 @@ public class BruteCollinearPoints {
 		
 		for (int i=0; i < points.length; i++) {
 			p = points[i];
-			for (int j=0; j < points.length; j++) {
+			for (int j=i+1; j < points.length; j++) {
 			// for (int j=i+1; j < points.length; j++) {
 				q = points[j];
 				
@@ -45,30 +45,43 @@ public class BruteCollinearPoints {
 				current_slope = p.slopeTo(q);
 				
 				// for (int k=j+1; k < points.length; k++) {
-				for (int k=0; k < points.length; k++) {
+				for (int k=j+1; k < points.length; k++) {
 					r = points[k];
+					
+					if (!(p.slopeTo(q)==p.slopeTo(r))) continue;
+					
 					// for (int l=k+1; l < points.length; l++) {
-					for (int l=0; l < points.length; l++) {
+					for (int l=k+1; l < points.length; l++) {
 						s = points[l];
-						System.out.println("====================================");
-						System.out.println("p=" + p);
-						System.out.println("q=" + q);
-						System.out.println("p.slopeTo(q) : " + p.slopeTo(q));
-						System.out.println("r=" + r);
-						System.out.println("p.slopeTo(r) : " + p.slopeTo(r));
-						System.out.println("s=" + s);
-						System.out.println("p.slopeTo(s) : " + p.slopeTo(s));
+//						System.out.println("====================================");
+//						System.out.println("p=" + p);
+//						System.out.println("q=" + q);
+//						System.out.println("p.slopeTo(q) : " + p.slopeTo(q));
+//						System.out.println("r=" + r);
+//						System.out.println("p.slopeTo(r) : " + p.slopeTo(r));
+//						System.out.println("s=" + s);
+//						System.out.println("p.slopeTo(s) : " + p.slopeTo(s));
+//						System.out.println("====================================");
 						if ((p.slopeTo(q)==p.slopeTo(r)) && (p.slopeTo(q)==p.slopeTo(s))) {
-							
-							segmentsArray[index_array] = new LineSegment(p, s);
-							index_array++;
+							System.out.println("====================================");
+							System.out.println("p=" + p);
+							System.out.println("q=" + q);
+							System.out.println("p.slopeTo(q) : " + p.slopeTo(q));
+							System.out.println("r=" + r);
+							System.out.println("p.slopeTo(r) : " + p.slopeTo(r));
+							System.out.println("s=" + s);
+							System.out.println("p.slopeTo(s) : " + p.slopeTo(s));
+							System.out.println("====================================");
+//							segmentsArray[index_array] = new LineSegment(loSegmentPoint, s);
+//							index_array++;
 				
-//							if (p.slopeTo(s)==current_slope) {
-//								segmentsArray[index_array] = new LineSegment(loSegmentPoint, s);
-//							} else {
-//								index_array++;
-//								segmentsArray[index_array] = new LineSegment(p, s);
-//							}
+							if (p.slopeTo(s)==current_slope) {
+								segmentsArray[index_array] = new LineSegment(loSegmentPoint, s);
+								index_array++;
+							} else {
+								index_array++;
+								segmentsArray[index_array] = new LineSegment(p, s);
+							}
 
 						}
 					}
