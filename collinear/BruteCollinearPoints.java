@@ -1,10 +1,4 @@
-//public class BruteCollinearPoints {
-//   public BruteCollinearPoints(Point[] points)    // finds all line segments containing 4 points
-//   public           int numberOfSegments()        // the number of line segments
-//   public LineSegment[] segments()     
-
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
@@ -14,9 +8,8 @@ public class BruteCollinearPoints {
 	
 	private LineSegment[] segmentsArray;
 	private int index_array = 0;
-	Point p, q, r, s, loSegmentPoint;
-	double current_slope;
-	
+	private Point p, q, r, s, min, max;
+	private double old_slope;
 
 	public BruteCollinearPoints(Point[] points) {
 		if (points==null) throw new IllegalArgumentException("argument cannot be null");
@@ -27,80 +20,71 @@ public class BruteCollinearPoints {
 				if (points[i-1].equals(points[i])) throw new IllegalArgumentException("array cannot contain duplicates");
 			}
 		}
-		// segmentsArray = new LineSegment[points.length];
-		segmentsArray = new LineSegment[4096];
-		current_slope = points[0].slopeTo(points[1]);
-		loSegmentPoint = points[0];
 		
-		for (int i=0; i < points.length; i++) {
+		segmentsArray = new LineSegment[points.length*points.length];
+
+		old_slope = points[0].slopeTo(points[1]);
+//		loSegmentPoint = points[0];
+	
+		
+
+		for (int i=0; i < points.length ; i++) {
 			p = points[i];
-			for (int j=i+1; j < points.length; j++) {
-			// for (int j=i+1; j < points.length; j++) {
+			
+			for (int j=i+1; j < points.length ; j++) {
 				q = points[j];
 				
-				if (!(current_slope==p.slopeTo(q))) {
-					loSegmentPoint = p;
-				}
-				
-				current_slope = p.slopeTo(q);
-				
-				// for (int k=j+1; k < points.length; k++) {
+//				if (!(loSegmentPoint.slopeTo(q)==p.slopeTo(q))) {
+//					loSegmentPoint = p;
+//					if (!(segmentsArray[index_array]==null)) index_array++;
+//				}
+
 				for (int k=j+1; k < points.length; k++) {
 					r = points[k];
 					
 					if (!(p.slopeTo(q)==p.slopeTo(r))) continue;
 					
-					// for (int l=k+1; l < points.length; l++) {
 					for (int l=k+1; l < points.length; l++) {
 						s = points[l];
-//						System.out.println("====================================");
-//						System.out.println("p=" + p);
-//						System.out.println("q=" + q);
-//						System.out.println("p.slopeTo(q) : " + p.slopeTo(q));
-//						System.out.println("r=" + r);
-//						System.out.println("p.slopeTo(r) : " + p.slopeTo(r));
-//						System.out.println("s=" + s);
-//						System.out.println("p.slopeTo(s) : " + p.slopeTo(s));
-//						System.out.println("====================================");
 						if ((p.slopeTo(q)==p.slopeTo(r)) && (p.slopeTo(q)==p.slopeTo(s))) {
-							System.out.println("====================================");
-							System.out.println("p=" + p);
-							System.out.println("q=" + q);
-							System.out.println("p.slopeTo(q) : " + p.slopeTo(q));
-							System.out.println("r=" + r);
-							System.out.println("p.slopeTo(r) : " + p.slopeTo(r));
-							System.out.println("s=" + s);
-							System.out.println("p.slopeTo(s) : " + p.slopeTo(s));
-							System.out.println("====================================");
-//							segmentsArray[index_array] = new LineSegment(loSegmentPoint, s);
-//							index_array++;
-				
-							if (p.slopeTo(s)==current_slope) {
-								segmentsArray[index_array] = new LineSegment(loSegmentPoint, s);
-								index_array++;
-							} else {
-								index_array++;
-								segmentsArray[index_array] = new LineSegment(p, s);
+							
+							if (min == null) min = p;
+							if (max == null) max = s;
+							
+							if (!(old_slope==p.slopeTo(q))) {
+								min = p;
+								max = s;
+								
+								if (!(segmentsArray[index_array]==null)) index_array++;
 							}
+							
+							
+							if ((min.compareTo(p) > 0) && old_slope==p.slopeTo(q)) min = p;
+							if ((max.compareTo(s) < 0) && old_slope==p.slopeTo(q)) max = s;
+							
+							System.out.println("add in [" + index_array + "] :" + min + " ; " + max);
+							segmentsArray[index_array] = new LineSegment(min, max);
+							
+							old_slope = p.slopeTo(q);
 
-						}
+						};
+						
+						
 					}
 				}
 			}
 			
 		} // external for
-		
+		 if (segmentsArray[index_array]==null) index_array--;
 		
 		
 	}
 	
-//	private void extendSegment() {
-//		
-//	}
 	
 	public int numberOfSegments() {
 		if (segmentsArray[0]==null) return 0;
 		return index_array+1;
+
 	}
 	
 	public LineSegment[] segments() {

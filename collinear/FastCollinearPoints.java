@@ -1,8 +1,4 @@
-//public class FastCollinearPoints {
-//   public FastCollinearPoints(Point[] points)     // finds all line segments containing 4 or more points
-//   public           int numberOfSegments()        // the number of line segments
-//   public LineSegment[] segments()      
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -13,20 +9,22 @@ import edu.princeton.cs.algs4.StdDraw;
 public class FastCollinearPoints {
 	
 	private Point[] pointsArray;
-	private LineSegment[] segmentsArray;
-	private int segmentsCounter = 0;
+//	private LineSegment[] segmentsArray;
+//	private int segmentsCounter = 0;
+	
+	private ArrayList<LineSegment> segmentList = new ArrayList<>();
 	
 	public FastCollinearPoints(Point[] points) {
 		
-		double start_slope, current_slope;
-		int idx = 0;
-		int int_idx = 0;
+//		double start_slope, current_slope;
+//		int idx = 0;
+//		int int_idx = 0;
 		
-		int pointsSegCounter = 0;
-		Point minPoint, maxPoint;
+		// int pointsSegCounter = 0;
+		// Point minPoint, maxPoint;
 		
 		pointsArray = points.clone();
-		segmentsArray = new LineSegment[points.length];
+		// segmentsArray = new LineSegment[points.length];
 		
 
 		
@@ -39,49 +37,74 @@ public class FastCollinearPoints {
 			}
 		}
 		
-		for (int i=0; i < pointsArray.length; i++) {
-			// Arrays.sort(pointsArray, pointsArray[i].slopeOrder());
-			Arrays.sort(pointsArray, i+1,pointsArray.length-1,pointsArray[i].slopeOrder());
+		Point[] pointsArray = Arrays.copyOf(points, points.length);
+        for (int i = 0; i < points.length; i++) {
+            Point p = points[i];
+            Arrays.sort(pointsArray);
+            Arrays.sort(pointsArray, p.slopeOrder());
 
+            int min = 0;
+            while (min < pointsArray.length && p.slopeTo(pointsArray[min]) == Double.NEGATIVE_INFINITY) min++;
+            if (min != 1) throw new IllegalArgumentException();// check duplicate points
+            int max = min;
+            while (min < pointsArray.length) {
+                while (max < pointsArray.length && p.slopeTo(pointsArray[max]) == p.slopeTo(pointsArray[min])) max++;
+                if (max - min >= 3) {
+                    Point pMin = pointsArray[min].compareTo(p) < 0 ? pointsArray[min] : p;
+                    Point pMax = pointsArray[max - 1].compareTo(p) > 0 ? pointsArray[max - 1] : p;
+                    if (p == pMin)
+                        segmentList.add(new LineSegment(pMin, pMax));
+                }
+                min = max;
+            }
+        }
 		
-			while (idx < pointsArray.length - 3) {
-				
-				minPoint = pointsArray[idx];
-				maxPoint = pointsArray[idx];
-				start_slope = pointsArray[idx].slopeTo(pointsArray[idx+1]);
-				pointsSegCounter = 0;
-				int_idx = idx + 2;
-				current_slope = pointsArray[idx].slopeTo(pointsArray[idx+2]);
-				System.out.println("Point : " + pointsArray[idx]);
-				System.out.println("current_slope "+ current_slope);
-	
-				
-				while ((current_slope == start_slope) && (int_idx < pointsArray.length)) {
-					int_idx++;
-					if ((int_idx < pointsArray.length)) {
-						current_slope = pointsArray[idx].slopeTo(pointsArray[int_idx]);
-					}
-					maxPoint = pointsArray[int_idx - 1];
-					pointsSegCounter = int_idx - idx;
-				}
-				
-				if (pointsSegCounter > 3) {
-					System.out.println("pointsSegCounter = " + pointsSegCounter);
-					segmentsArray[segmentsCounter] = new LineSegment(minPoint, maxPoint);
-					segmentsCounter++;
-					idx = int_idx;
-				} else {
-					if (pointsSegCounter > 0) {
-						idx = int_idx;
-					}
-					else {
-						idx++; 
-					}
-				}
-				
-			} // while
 		
-		}	 // for
+		
+		
+//		for (int i=0; i < pointsArray.length; i++) {
+//			 Arrays.sort(pointsArray, pointsArray[i].slopeOrder());
+//
+//
+//		
+//			while (idx < pointsArray.length - 3) {
+//				
+//				minPoint = pointsArray[idx];
+//				maxPoint = pointsArray[idx];
+//				start_slope = pointsArray[idx].slopeTo(pointsArray[idx+1]);
+//				pointsSegCounter = 0;
+//				int_idx = idx + 2;
+//				current_slope = pointsArray[idx].slopeTo(pointsArray[idx+2]);
+//				System.out.println("Point : " + pointsArray[idx]);
+//				System.out.println("current_slope "+ current_slope);
+//	
+//				
+//				while ((current_slope == start_slope) && (int_idx < pointsArray.length)) {
+//					int_idx++;
+//					if ((int_idx < pointsArray.length)) {
+//						current_slope = pointsArray[idx].slopeTo(pointsArray[int_idx]);
+//					}
+//					maxPoint = pointsArray[int_idx - 1];
+//					pointsSegCounter = int_idx - idx;
+//				}
+//				
+//				if (pointsSegCounter > 3) {
+//					System.out.println("pointsSegCounter = " + pointsSegCounter);
+//					segmentsArray[segmentsCounter] = new LineSegment(minPoint, maxPoint);
+//					segmentsCounter++;
+//					idx = int_idx;
+//				} else {
+//					if (pointsSegCounter > 0) {
+//						idx = int_idx;
+//					}
+//					else {
+//						idx++; 
+//					}
+//				}
+//				
+//			} // while
+//		
+//		}	 // for
 		
 		
 		
@@ -95,13 +118,16 @@ public class FastCollinearPoints {
 	}
 	
 	public int numberOfSegments() {
-		System.out.println("segmentsCounter: " + segmentsCounter);
-		return segmentsCounter;
+//		System.out.println("segmentsCounter: " + segmentsCounter);
+//		return segmentsCounter;
+		 return segmentList.size();
 	}
 	
 	public LineSegment[] segments() {
-		return Arrays.copyOf(segmentsArray, numberOfSegments());
-		// return segmentsArray;
+		// return Arrays.copyOf(segmentsArray, numberOfSegments());
+        LineSegment[] segments = new LineSegment[segmentList.size()];
+        return segmentList.toArray(segments);
+
 	}
 	
 	public static void main(String[] args) {
