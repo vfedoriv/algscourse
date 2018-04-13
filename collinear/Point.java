@@ -95,7 +95,7 @@ public class Point implements Comparable<Point> {
     	return new PointComparator();
     }
     
-    class PointComparator implements Comparator<Point> {
+    private class PointComparator implements Comparator<Point> {
 
 		public int compare(Point o1, Point o2) {
 			if (slopeTo(o1) < slopeTo(o2)) return -1;

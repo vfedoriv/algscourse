@@ -1,0 +1,657 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Findbugs:     FAILED (2 warnings)
+PMD:          PASSED
+Checkstyle:   FAILED (0 errors, 42 warnings)
+
+Correctness:  41/41 tests passed
+Memory:       1/1 tests passed
+Timing:       41/41 tests passed
+
+Aggregate score: 100.00%
+[Compilation: 5%, API: 5%, Findbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+2.5K Apr  6 16:07 BruteCollinearPoints.java
+2.6K Apr  6 16:07 FastCollinearPoints.java
+4.1K Apr  6 16:07 Point.java
+
+
+********************************************************************************
+*  COMPILING                                                                    
+********************************************************************************
+
+
+% javac Point.java
+*-----------------------------------------------------------
+
+% javac BruteCollinearPoints.java
+*-----------------------------------------------------------
+
+% javac FastCollinearPoints.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Point:
+
+BruteCollinearPoints:
+
+FastCollinearPoints:
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS                                       
+********************************************************************************
+
+
+% findbugs *.class
+*-----------------------------------------------------------
+L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At Point.java:[line 102]
+L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At BruteCollinearPoints.java:[line 37]
+Warnings generated: 2
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+BruteCollinearPoints.java:8: The private instance (or static) variable 'segmentsArray' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+BruteCollinearPoints.java:10: Can you replace the instance (or static) variable 'pointsArray' with a local variable? [SingularField]
+BruteCollinearPoints.java:10: The private instance (or static) variable 'pointsArray' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+BruteCollinearPoints.java:43: There appears to be a spurious semicolon. [EmptyStatementNotInLoop]
+FastCollinearPoints.java:11: Can you replace the instance (or static) variable 'pointsArray' with a local variable? [SingularField]
+FastCollinearPoints.java:11: The private instance (or static) variable 'pointsArray' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+FastCollinearPoints.java:13: The private instance (or static) variable 'segmentsList' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+PMD ends with 7 warnings.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[WARN] BruteCollinearPoints.java:8:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] BruteCollinearPoints.java:9:17: The instance variable 'index_array' must start with a lowercase letter and use camelCase. [MemberName]
+[WARN] BruteCollinearPoints.java:15:19: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:15:21: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:19:19: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:19:20: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:20:31: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:24:19: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:24:20: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:30:19: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:30:20: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:30:45: ';' is preceded with whitespace. [NoWhitespaceBefore]
+[WARN] BruteCollinearPoints.java:33:23: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:33:24: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:33:51: ';' is preceded with whitespace. [NoWhitespaceBefore]
+[WARN] BruteCollinearPoints.java:35:27: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:35:28: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:37:39: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:37:41: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:38:30: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
+[WARN] BruteCollinearPoints.java:38:31: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:38:32: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:40:42: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:40:44: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:40:74: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:40:76: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:43:26: Are you sure you want an empty statement here? An empty statement might indicate a superfluous semicolon. [EmptyStatement]
+[WARN] BruteCollinearPoints.java:48:40: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:48:42: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:53:29: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:53:31: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:10:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] FastCollinearPoints.java:17:19: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:17:21: '==' is not followed by whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:21:19: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:21:20: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:22:31: '==' is not preceded with whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:26:19: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] FastCollinearPoints.java:26:20: '=' is not followed by whitespace. [WhitespaceAround]
+...
+Checkstyle ends with 0 errors and 42 warnings.
+
+% custom checkstyle checks for Point.java
+*-----------------------------------------------------------
+
+% custom checkstyle checks for BruteCollinearPoints.java
+*-----------------------------------------------------------
+
+% custom checkstyle checks for FastCollinearPoints.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+********************************************************************************
+*  TESTING CORRECTNESS
+********************************************************************************
+
+Testing correctness of Point
+*-----------------------------------------------------------
+Running 3 total tests.
+
+Test 1: p.slopeTo(q)
+  * positive infinite slope, where p and q have coordinates in [0, 500)
+  * positive infinite slope, where p and q have coordinates in [0, 32768)
+  * negative infinite slope, where p and q have coordinates in [0, 500)
+  * negative infinite slope, where p and q have coordinates in [0, 32768)
+  * positive zero     slope, where p and q have coordinates in [0, 500)
+  * positive zero     slope, where p and q have coordinates in [0, 32768)
+  * symmetric for random points p and q with coordinates in [0, 500)
+  * symmetric for random points p and q with coordinates in [0, 32768)
+  * transitive for random points p, q, and r with coordinates in [0, 500)
+  * transitive for random points p, q, and r with coordinates in [0, 32768)
+  * slopeTo(), where p and q have coordinates in [0, 500)
+  * slopeTo(), where p and q have coordinates in [0, 32768)
+  * slopeTo(), where p and q have coordinates in [0, 10)
+  * throw a java.lang.NullPointerException if argument is null
+==> passed
+
+Test 2: p.compareTo(q)
+  * reflexive, where p and q have coordinates in [0, 500)
+  * reflexive, where p and q have coordinates in [0, 32768)
+  * antisymmetric, where p and q have coordinates in [0, 500)
+  * antisymmetric, where p and q have coordinates in [0, 32768)
+  * transitive, where p, q, and r have coordinates in [0, 500)
+  * transitive, where p, q, and r have coordinates in [0, 32768)
+  * sign of compareTo(), where p and q have coordinates in [0, 500)
+  * sign of compareTo(), where p and q have coordinates in [0, 32768)
+  * sign of compareTo(), where p and q have coordinates in [0, 10)
+  * throw java.lang.NullPointerException exception if argument is null
+==> passed
+
+Test 3: p.slopeOrder().compare(q, r)
+  * reflexive, where p and q have coordinates in [0, 500)
+  * reflexive, where p and q have coordinates in [0, 32768)
+  * antisymmetric, where p, q, and r have coordinates in [0, 500)
+  * antisymmetric, where p, q, and r have coordinates in [0, 32768)
+  * transitive, where p, q, r, and s have coordinates in [0, 500)
+  * transitive, where p, q, r, and s have coordinates in [0, 32768)
+  * sign of compare(), where p, q, and r have coordinates in [0, 500)
+  * sign of compare(), where p, q, and r have coordinates in [0, 32768)
+  * sign of compare(), where p, q, and r have coordinates in [0, 10)
+  * throw java.lang.NullPointerException if either argument is null
+==> passed
+
+
+Total: 3/3 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference Point and LineSegment)
+********************************************************************************
+
+Testing correctness of BruteCollinearPoints
+*-----------------------------------------------------------
+Running 17 total tests.
+
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - no 5 (or more) points are collinear
+  - all x- and y-coordinates between 0 and 32,767
+
+Test 1: points from a file
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+==> passed
+
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+  * filename = horizontal25.txt
+==> passed
+
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
+==> passed
+
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
+==> passed
+
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
+==> passed
+
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
+==> passed
+
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
+==> passed
+
+Test 5: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
+==> passed
+
+Test 6: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+==> passed
+
+Test 7: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+==> passed
+
+Test 8: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
+==> passed
+
+Test 9: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
+==> passed
+
+Test 10: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 11: check that data type does not mutate the constructor argument
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 12: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
+==> passed
+
+Test 13: throws an exception if either the constructor argument is null
+         or any entry in array is null
+  * argument is null
+  * Point[] of length 10, number of null entries = 1
+  * Point[] of length 10, number of null entries = 10
+  * Point[] of length 4, number of null entries = 1
+  * Point[] of length 3, number of null entries = 1
+  * Point[] of length 2, number of null entries = 1
+  * Point[] of length 1, number of null entries = 1
+==> passed
+
+Test 14: check that the constructor throws an exception if duplicate points
+  * 50 points
+  * 25 points
+  * 5 points
+  * 4 points
+  * 3 points
+  * 2 points
+==> passed
+
+
+Total: 17/17 tests passed!
+
+
+================================================================
+Testing correctness of FastCollinearPoints
+*-----------------------------------------------------------
+Running 21 total tests.
+
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - all x- and y-coordinates between 0 and 32,767
+
+Test 1: points from a file
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = input299.txt
+==> passed
+
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+  * filename = horizontal25.txt
+  * filename = horizontal50.txt
+  * filename = horizontal75.txt
+  * filename = horizontal100.txt
+==> passed
+
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
+==> passed
+
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
+  * filename = vertical50.txt
+  * filename = vertical75.txt
+  * filename = vertical100.txt
+==> passed
+
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
+==> passed
+
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
+  * filename = random91.txt
+  * filename = random152.txt
+==> passed
+
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
+==> passed
+
+Test 5a: points from a file with 5 or more on some line segments
+  * filename = input9.txt
+  * filename = input10.txt
+  * filename = input20.txt
+  * filename = input50.txt
+  * filename = input80.txt
+  * filename = input300.txt
+  * filename = inarow.txt
+==> passed
+
+Test 5b: points from a file with 5 or more on some line segments
+  * filename = kw1260.txt
+  * filename = rs1423.txt
+==> passed
+
+Test 6: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
+==> passed
+
+Test 7: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = input299.txt
+==> passed
+
+Test 8: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+==> passed
+
+Test 9: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 25 random line segments
+  * 50 random line segments
+  * 100 random line segments
+==> passed
+
+Test 10: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 25 random line segments
+  * 50 random line segments
+  * 100 random line segments
+==> passed
+
+Test 11: random distinct points in a given range
+  * 5 random points in a 10-by-10 grid
+  * 10 random points in a 10-by-10 grid
+  * 50 random points in a 10-by-10 grid
+  * 90 random points in a 10-by-10 grid
+  * 200 random points in a 50-by-50 grid
+==> passed
+
+Test 12: m*n points on an m-by-n grid
+  * 3-by-3 grid
+  * 4-by-4 grid
+  * 5-by-5 grid
+  * 10-by-10 grid
+  * 20-by-20 grid
+  * 5-by-4 grid
+  * 6-by-4 grid
+  * 10-by-4 grid
+  * 15-by-4 grid
+  * 25-by-4 grid
+==> passed
+
+Test 13: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 14: check that data type does not mutate the constructor argument
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 15: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
+==> passed
+
+Test 16: throws an exception if either constructor argument is null
+         or any entry in array is null
+  * argument is null
+  * Point[] of length 10, number of null entries = 1
+  * Point[] of length 10, number of null entries = 10
+  * Point[] of length 4, number of null entries = 1
+  * Point[] of length 3, number of null entries = 1
+  * Point[] of length 2, number of null entries = 1
+  * Point[] of length 1, number of null entries = 1
+==> passed
+
+Test 17: check that the constructor throws an exception if duplicate points
+  * 50 points
+  * 25 points
+  * 5 points
+  * 4 points
+  * 3 points
+  * 2 points
+==> passed
+
+
+Total: 21/21 tests passed!
+
+
+================================================================
+********************************************************************************
+*  MEMORY
+********************************************************************************
+
+Analyzing memory of Point
+*-----------------------------------------------------------
+Running 1 total tests.
+
+The maximum amount of memory per Point object is 32 bytes.
+
+Student memory = 24 bytes (passed)
+
+Total: 1/1 tests passed!
+
+================================================================
+
+
+
+********************************************************************************
+*  TIMING
+********************************************************************************
+
+Timing BruteCollinearPoints
+*-----------------------------------------------------------
+Running 10 total tests.
+
+Test 1a-1e: Find collinear points among n random distinct points
+
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    16   0.00        1120           0           1120                   45         
+=> passed    32   0.00        9920           0           9920                  122         
+=> passed    64   0.00       83328           0          83328                  304         
+=> passed   128   0.01      682752           0         682752                  745         
+=> passed   256   0.03     5527040           0        5527040                 1734         
+==> 5/5 tests passed
+
+Test 2a-2e: Find collinear points among n/4 arbitrary line segments
+
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    16   0.00        1520           0           1520                   45         
+=> passed    32   0.00       11384           0          11384                  118         
+=> passed    64   0.00       89984           0          89984                  310         
+=> passed   128   0.01      708628           0         708628                  746         
+=> passed   256   0.04     5635672           0        5635672                 1722         
+==> 5/5 tests passed
+
+Total: 10/10 tests passed!
+
+
+================================================================
+
+
+
+Timing FastCollinearPoints
+*-----------------------------------------------------------
+Running 31 total tests.
+
+Test 1a-1g: Find collinear points among n random distinct points
+
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.01        7564       17754          43072                17991         
+=> passed   128   0.02       31500       86654         204808                87691         
+=> passed   256   0.11      128524      409708         947940               407468         
+=> passed   512   0.27      519180     1885238        4289656              1884350         
+=> passed  1024   0.41     2086924     8502238       19091400              8496897         
+=> passed  2048   1.50     8368140    38046101       84460342             38142696         
+==> 6/6 tests passed
+
+lg ratio(slopeTo() + 2*compare()) = lg (84460342 / 19091400) = 2.15
+=> passed
+
+==> 7/7 tests passed
+
+Test 2a-2g: Find collinear points among the n points on an n-by-1 grid
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        7564        4566          16696                 6760         
+=> passed   128   0.00       31500       17406          66312                22549         
+=> passed   256   0.01      128524       67943         264410                79129         
+=> passed   512   0.03      519180      267857        1054894               291396         
+=> passed  1024   0.04     2086924     1061948        4210820              1110705         
+=> passed  2048   0.15     8368140     4225064       16818268              4325258         
+=> passed  4096   0.35    33513484    16846869       67207222             17051967         
+==> 7/7 tests passed
+
+lg ratio(slopeTo() + 2*compare()) = lg (67207222 / 16818268) = 2.00
+=> passed
+
+==> 8/8 tests passed
+
+Test 3a-3g: Find collinear points among the n points on an n/4-by-4 grid
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        7564       14386          36336                16254         
+=> passed   128   0.00       31500       42920         117340                62650         
+=> passed   256   0.01      128524      147881         424286               241658         
+=> passed   512   0.02      519180      544828        1608836               938298         
+=> passed  1024   0.09     2086924     2081014        6248952              3676685         
+=> passed  2048   0.31     8368140     8109673       24587486             14488433         
+=> passed  4096   1.25    33513484    31965619       97444722             57407585         
+==> 7/7 tests passed
+
+lg ratio(slopeTo() + 2*compare()) = lg (97444722 / 24587486) = 1.99
+=> passed
+
+==> 8/8 tests passed
+
+Test 4a-4g: Find collinear points among the n points on an n/8-by-8 grid
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        7564       17251          42066                18179         
+=> passed   128   0.00       31500       74449         180398                83586         
+=> passed   256   0.01      128524      229652         587828               336696         
+=> passed   512   0.04      519180      849527        2218234              1333877         
+=> passed  1024   0.16     2086924     3251178        8589280              5302572         
+=> passed  2048   0.48     8368140    12679845       33727830             21139552         
+=> passed  4096   1.78    33513484    50004769      133523022             84299798         
+==> 7/7 tests passed
+
+lg ratio(slopeTo() + 2*compare()) = lg (133523022 / 33727830) = 1.99
+=> passed
+
+==> 8/8 tests passed
+
+Total: 31/31 tests passed!
+
+
+================================================================

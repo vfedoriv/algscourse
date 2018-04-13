@@ -1,8 +1,4 @@
-//public class FastCollinearPoints {
-//   public FastCollinearPoints(Point[] points)     // finds all line segments containing 4 or more points
-//   public           int numberOfSegments()        // the number of line segments
-//   public LineSegment[] segments()      
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -13,95 +9,50 @@ import edu.princeton.cs.algs4.StdDraw;
 public class FastCollinearPoints {
 	
 	private Point[] pointsArray;
-	private LineSegment[] segmentsArray;
-	private int segmentsCounter = 0;
+	
+	private ArrayList<LineSegment> segmentsList = new ArrayList<>();
 	
 	public FastCollinearPoints(Point[] points) {
 		
-		double start_slope, current_slope;
-		int idx = 0;
-		int int_idx = 0;
+		if (points==null) throw new IllegalArgumentException("argument cannot be null");
 		
-		int pointsSegCounter = 0;
-		Point minPoint, maxPoint;
-		
-		pointsArray = points.clone();
-		segmentsArray = new LineSegment[points.length];
-		
+		pointsArray = Arrays.copyOf(points, points.length);
 
-		
-		if (pointsArray==null) throw new IllegalArgumentException("argument cannot be null");
-		Arrays.sort(pointsArray);
 		for (int i=0; i < pointsArray.length; i++) {
 			if (pointsArray[i]== null)  throw new IllegalArgumentException("array item cannot be null");
-			if (i> 0) {
-				if (pointsArray[i-1].equals(pointsArray[i])) throw new IllegalArgumentException("array cannot contain duplicates");
-			}
 		}
 		
-		for (int i=0; i < pointsArray.length; i++) {
-			// Arrays.sort(pointsArray, pointsArray[i].slopeOrder());
-			Arrays.sort(pointsArray, i+1,pointsArray.length-1,pointsArray[i].slopeOrder());
+		Arrays.sort(pointsArray);
+		for (int i=0; i < pointsArray.length-1; i++) {
+			if (pointsArray[i].equals(pointsArray[i+1])) throw new IllegalArgumentException("array cannot contain duplicates");
+		}
+		
+        for (int i = 0; i < pointsArray.length - 3; i++) {
+            Arrays.sort(pointsArray);
+            Arrays.sort(pointsArray, pointsArray[i].slopeOrder());
 
-		
-			while (idx < pointsArray.length - 3) {
-				
-				minPoint = pointsArray[idx];
-				maxPoint = pointsArray[idx];
-				start_slope = pointsArray[idx].slopeTo(pointsArray[idx+1]);
-				pointsSegCounter = 0;
-				int_idx = idx + 2;
-				current_slope = pointsArray[idx].slopeTo(pointsArray[idx+2]);
-				System.out.println("Point : " + pointsArray[idx]);
-				System.out.println("current_slope "+ current_slope);
-	
-				
-				while ((current_slope == start_slope) && (int_idx < pointsArray.length)) {
-					int_idx++;
-					if ((int_idx < pointsArray.length)) {
-						current_slope = pointsArray[idx].slopeTo(pointsArray[int_idx]);
-					}
-					maxPoint = pointsArray[int_idx - 1];
-					pointsSegCounter = int_idx - idx;
-				}
-				
-				if (pointsSegCounter > 3) {
-					System.out.println("pointsSegCounter = " + pointsSegCounter);
-					segmentsArray[segmentsCounter] = new LineSegment(minPoint, maxPoint);
-					segmentsCounter++;
-					idx = int_idx;
-				} else {
-					if (pointsSegCounter > 0) {
-						idx = int_idx;
-					}
-					else {
-						idx++; 
-					}
-				}
-				
-			} // while
-		
-		}	 // for
-		
-		
-		
-		
-
-		
-		
-		
-		
+            for (int p = 0, first = 1, last = 2; last < pointsArray.length; last++) {
+                while (last < pointsArray.length
+                        && Double.compare(pointsArray[p].slopeTo(pointsArray[first]), pointsArray[p].slopeTo(pointsArray[last])) == 0) {
+                    last++;
+                }
+                if (last - first >= 3 && pointsArray[p].compareTo(pointsArray[first]) < 0) {
+                	segmentsList.add(new LineSegment(pointsArray[p], pointsArray[last - 1]));
+                }
+                first = last;
+            }
+        }
 		
 	}
 	
 	public int numberOfSegments() {
-		System.out.println("segmentsCounter: " + segmentsCounter);
-		return segmentsCounter;
+		 return segmentsList.size();
 	}
 	
 	public LineSegment[] segments() {
-		return Arrays.copyOf(segmentsArray, numberOfSegments());
-		// return segmentsArray;
+        LineSegment[] segments = new LineSegment[segmentsList.size()];
+        return segmentsList.toArray(segments);
+
 	}
 	
 	public static void main(String[] args) {
