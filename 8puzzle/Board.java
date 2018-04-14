@@ -3,7 +3,6 @@ import java.util.LinkedList;
 public class Board {
 	
 	private int[][] tiles;
-	private int[][] goal;
 	private int dimension, hamming, manhattan;
 	
 	public Board(int[][] blocks) {
@@ -14,17 +13,7 @@ public class Board {
 		
 		if ((blocks == null) || (blocks.length == 0)) throw new IllegalArgumentException("argument cannot be null or 0 lenght");
 		dimension = blocks.length;
-		
-		// fill goals
-		goal = new int[dimension][dimension];
-		int arr_value = 1;
-	    for (int i = 0; i < dimension; i++) {
-	    	for (int j = 0; j < dimension; j++) {
-	    		goal[i][j]= arr_value++;
-	    	}
-	    }
-	    goal[dimension-1][dimension-1]= 0;
-		
+
 		// copy argument into inner array
 		tiles = new int[dimension][];
 	    for (int i = 0; i < dimension; i++) {
@@ -38,7 +27,7 @@ public class Board {
 	    		row = (tiles[i][j]-1) / dimension;
     		    column = (tiles[i][j]-1) % dimension;
     			manhattan = manhattan + Math.abs(i-row)+ Math.abs(j-column);
-	    		if (tiles[i][j] != goal[i][j]) {
+	    		if (tiles[i][j] != (i * dimension + j + 1)) {
 	    			hamming++;
 	    		}
 
@@ -84,11 +73,15 @@ public class Board {
 		if (y == null) return false;
 		if (this.getClass() != y.getClass()) return false;
 		Board other = (Board) y;
-		return (
-				(this.dimension()==other.dimension()) &&
-				(this.hamming()==other.hamming()) &&
-				(this.manhattan()==other.manhattan())			
-				);
+		if (!(this.dimension()==other.dimension()) ||
+				!(this.hamming()==other.hamming()) ||
+				!(this.manhattan()==other.manhattan())) return false;			
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
+                if (this.tiles[i][j] != other.tiles[i][j]) return false;
+            }
+        }
+        return true;
 	}
 	
 	public Iterable<Board> neighbors() {

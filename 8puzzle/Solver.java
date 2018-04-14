@@ -7,8 +7,9 @@ import edu.princeton.cs.algs4.MinPQ;
 public class Solver {
 	
     private SearchNode lastNode;
-	
+    
 	public Solver(Board initial) {
+		
 		MinPQ<SearchNode> searchNodes = new MinPQ<SearchNode>();
         searchNodes.insert(new SearchNode(initial));
 
@@ -27,15 +28,13 @@ public class Solver {
 	}
 	
 	public int moves() {
-		if (lastNode != null)
-			return lastNode.numMoves;
-		else return -1;
+		return isSolvable() ? lastNode.numMoves : -1;
 	}
 	
 	public Iterable<Board> solution() {
 		if (!isSolvable()) return null;
-        Stack<Board> nodes = new Stack<Board>();
-        while(lastNode != null) {
+		Stack<Board> nodes = new Stack<Board>();
+		while(lastNode != null) {
             nodes.push(lastNode.board);
             lastNode = lastNode.previous;
         }
@@ -59,8 +58,11 @@ public class Solver {
         }
 
         public int compareTo(SearchNode node) {
-            return (this.board.manhattan() - node.board.manhattan()) + (this.numMoves - node.numMoves);
+        	int val = (this.board.manhattan() + this.numMoves) - (node.board.manhattan() + node.numMoves);
+        	if (val == 0) return this.board.manhattan() - node.board.manhattan();
+            return val;
         }
+
     }
 	
     private SearchNode expand(MinPQ<SearchNode> nodes) {
@@ -96,7 +98,7 @@ public class Solver {
 	        StdOut.println("Minimum number of moves = " + solver.moves());
 	        for (Board board : solver.solution())
 	            StdOut.println(board);
-	    };
+	    }
 	}
 
 }
