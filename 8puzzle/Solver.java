@@ -1,12 +1,27 @@
+//public class Solver {
+//    public Solver(Board initial)           // find a solution to the initial board (using the A* algorithm)
+//    public boolean isSolvable()            // is the initial board solvable?
+//    public int moves()                     // min number of moves to solve initial board; -1 if unsolvable
+//    public Iterable<Board> solution()      // sequence of boards in a shortest solution; null if unsolvable
+//    public static void main(String[] args) // solve a slider puzzle (given below)
+
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
+
 public class Solver {
-    public Solver(Board initial)           // find a solution to the initial board (using the A* algorithm)
-    public boolean isSolvable()            // is the initial board solvable?
-    public int moves()                     // min number of moves to solve initial board; -1 if unsolvable
-    public Iterable<Board> solution()      // sequence of boards in a shortest solution; null if unsolvable
-    public static void main(String[] args) // solve a slider puzzle (given below)
-
-public static void main(String[] args) {
-
+	public Solver(Board initial) {
+		
+	}
+	public boolean isSolvable() {
+		return false;
+	}
+	public int moves() {
+		return 0;
+	}
+	public Iterable<Board> solution() {
+		return null;
+	}
+	public static void main(String[] args) {
     // create initial board from file
     In in = new In(args[0]);
     int n = in.readInt();
